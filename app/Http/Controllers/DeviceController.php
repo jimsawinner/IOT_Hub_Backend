@@ -12,7 +12,15 @@ class DeviceController extends Controller
 
     public function index()
     {
-        return Device::all();
+        // return Device::all();
+
+        $parameters = Device::find(1)->parameters;
+
+        return $parameters;
+
+        foreach ($comments as $comment) {
+            //
+        }
     }
  
     public function show($id)
