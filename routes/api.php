@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 
+Use App\Device;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,13 +19,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('devices', function() {
-    // If the Content-Type and Accept headers are set to 'application/json', 
-    // this will return a JSON structure. This will be cleaned up later.
-    return Device::all();
-});
- 
-Route::get('devices/{id}', function($id) {
-    return Device::find($id);
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::get('device', 'DeviceController@index');
+    Route::get('device/{device}', 'DeviceController@show');
 });
 
+// Route::get('device', 'DeviceController@index');
+
+// Route::get('device/{id}', 'DeviceController@show');
+
+Route::post('register', 'Auth\RegisterController@register');
+
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout');
+
+Route::middleware('auth:api')
+    ->get('/user', function (Request $request) {
+        return $request->user();
+    });
