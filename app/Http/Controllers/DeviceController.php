@@ -17,10 +17,6 @@ class DeviceController extends Controller
         $parameters = Device::find(1)->parameters;
 
         return $parameters;
-
-        foreach ($comments as $comment) {
-            //
-        }
     }
  
     public function show($id)
